@@ -1,0 +1,16 @@
+{
+  "name": "englishwithsiddharthsir-v4",
+  "version": "4.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "express-session": "^1.18.1",
+    "bcryptjs": "^2.4.3",
+    "better-sqlite3": "^11.8.1",
+    "multer": "^1.4.5-lts.1",
+    "pg": "^8.16.3"
+  }
+}

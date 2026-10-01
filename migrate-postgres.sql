@@ -1,0 +1,54 @@
+
+-- EnglishWithSiddharthSir V8 PostgreSQL schema
+CREATE TABLE IF NOT EXISTS admins(
+ id SERIAL PRIMARY KEY,
+ username TEXT UNIQUE NOT NULL,
+ password_hash TEXT NOT NULL,
+ created_at TIMESTAMPTZ DEFAULT NOW()
+);
+CREATE TABLE IF NOT EXISTS quizzes(
+ id SERIAL PRIMARY KEY,
+ title TEXT NOT NULL,
+ category TEXT NOT NULL,
+ duration INTEGER DEFAULT 0,
+ negative REAL DEFAULT 0,
+ difficulty TEXT DEFAULT 'Medium',
+ created_at TIMESTAMPTZ DEFAULT NOW()
+);
+CREATE TABLE IF NOT EXISTS questions(
+ id SERIAL PRIMARY KEY,
+ quiz_id INTEGER NOT NULL REFERENCES quizzes(id) ON DELETE CASCADE,
+ q TEXT NOT NULL,
+ a TEXT NOT NULL,
+ b TEXT NOT NULL,
+ c TEXT NOT NULL,
+ d TEXT NOT NULL,
+ correct TEXT NOT NULL,
+ explanation TEXT
+);
+CREATE TABLE IF NOT EXISTS notes(
+ id SERIAL PRIMARY KEY,
+ title TEXT NOT NULL,
+ category TEXT NOT NULL,
+ description TEXT,
+ file TEXT NOT NULL,
+ created_at TIMESTAMPTZ DEFAULT NOW()
+);
+CREATE TABLE IF NOT EXISTS students(
+ id SERIAL PRIMARY KEY,
+ name TEXT NOT NULL,
+ email TEXT UNIQUE NOT NULL,
+ password_hash TEXT NOT NULL,
+ created_at TIMESTAMPTZ DEFAULT NOW()
+);
+CREATE TABLE IF NOT EXISTS attempts(
+ id SERIAL PRIMARY KEY,
+ student_id INTEGER NOT NULL REFERENCES students(id) ON DELETE CASCADE,
+ quiz_id INTEGER NOT NULL REFERENCES quizzes(id) ON DELETE CASCADE,
+ score REAL NOT NULL,
+ total INTEGER NOT NULL,
+ percentage REAL NOT NULL,
+ created_at TIMESTAMPTZ DEFAULT NOW()
+);
+CREATE INDEX IF NOT EXISTS idx_attempts_student ON attempts(student_id);
+CREATE INDEX IF NOT EXISTS idx_attempts_quiz ON attempts(quiz_id);

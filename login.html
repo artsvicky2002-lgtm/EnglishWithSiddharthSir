@@ -1,0 +1,5 @@
+<!doctype html><html><head><meta name="viewport" content="width=device-width,initial-scale=1"><title>Admin Login</title><style>
+body{margin:0;background:#f3f6fb;font-family:Arial;color:#14213d;display:grid;place-items:center;min-height:100vh}.box{background:white;padding:30px;border-radius:16px;width:min(390px,90%);box-shadow:0 12px 35px #0001}h1{color:#173f8a}input,button{width:100%;padding:12px;margin:8px 0;border-radius:8px;border:1px solid #d7deea;box-sizing:border-box}button{background:#2563eb;color:white;font-weight:bold;border:0;cursor:pointer}.err{color:#b91c1c}
+</style></head><body><div class="box"><h1>EnglishWithSiddharthSir</h1><p>Admin Login</p><input id="u" placeholder="Username"><input id="p" type="password" placeholder="Password"><button onclick="login()">Login</button><div id="e" class="err"></div></div><script>
+async function login(){let r=await fetch("/api/login",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({username:u.value,password:p.value})});if(r.ok)location="admin.html";else e.textContent=(await r.json()).error}
+</script></body></html>
